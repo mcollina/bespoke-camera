@@ -1,0 +1,50 @@
+{
+  "name": "bespoke-camera",
+  "version": "0.0.0",
+  "description": "See you during your bespoke presentation! ",
+  "homepage": "https://github.com/mcollina/bespoke-camera",
+  "bugs": "https://github.com/mcollina/bespoke-camera/issues",
+  "author": {
+    "name": "Matteo Collina",
+    "url": "https://github.com/mcollina",
+    "email": "matteo.collina@gmail.com"
+  },
+  "main": "./dist/bespoke-camera.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mcollina/bespoke-camera.git"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "peerDependencies": {
+    "bespoke": ">=0.3.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-jasmine": "~0.5.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-micro": "~0.1.0",
+    "bespoke": "~0.4.0",
+    "bespoke-keys": "~0.1.0",
+    "grunt-contrib-connect": "~0.3.0",
+    "connect-livereload": "~0.2.0",
+    "matchdep": "~0.3.0",
+    "bespoke-touch": "~0.1.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "keywords": [
+    "bespoke.js-plugin"
+  ]
+}
