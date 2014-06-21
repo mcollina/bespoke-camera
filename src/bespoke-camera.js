@@ -1,6 +1,7 @@
 bespoke.plugins.camera = function(deck, options) {
 
   var video = document.createElement("video");
+  var fullscreen = false;
 
   options = options || {};
 
@@ -10,6 +11,10 @@ bespoke.plugins.camera = function(deck, options) {
   video.style.right = "0px";
   video.style.visibility = "hidden";
   video.style.opacity = "0";
+
+  video.onclick = function() {
+    toggleFullScreen();
+  }
 
   document.querySelector('body').appendChild(video);
 
@@ -60,5 +65,27 @@ bespoke.plugins.camera = function(deck, options) {
         // Ready to go. Do some stuff.
       };
     }, errorCallback);
+  }
+
+  function toggleFullScreen() {
+    if (!fullscreen) {
+      fullscreen = true;
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.mozRequestFullScreen) {
+        video.mozRequestFullScreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      }
+    } else {
+      fullscreen = false;
+      if (video.exitFullscreen) {
+        video.exitFullscreen();
+      } else if (video.mozCancelFullScreen) {
+        video.mozCancelFullScreen();
+      } else if (video.webkitExitFullscreen()) {
+        video.webkitExitFullscreen();
+      }
+    }
   }
 };
