@@ -1,47 +1,99 @@
 /*!
- * bespoke-camera v0.0.0
+ * bespoke-camera v0.1.0
  * https://github.com/mcollina/bespoke-camera
  *
  * Copyright 2014, Matteo Collina
  * This content is released under the MIT license
  */
 
-bespoke.plugins.camera = function(deck) {
+bespoke.plugins.camera = function(deck, options) {
 
-  /*
-    Interact with the deck
-    https://github.com/markdalgleish/bespoke.js#deck-instances
-  */
-  deck.next();
-  deck.prev();
-  deck.slide(0);
+  var video = document.createElement("video");
+  var fullscreen = false;
 
-  /*
-    Slide events
-    https://github.com/markdalgleish/bespoke.js#events
-  */
+  options = options || {};
+
+  video.style.width = options.width || "640px";
+  video.style.position = "fixed";
+  video.style.top = "0px";
+  video.style.right = "0px";
+  video.style.visibility = "hidden";
+  video.style.opacity = "0";
+
+  video.onclick = function() {
+    toggleFullScreen();
+  }
+
+  document.querySelector('body').appendChild(video);
+
+  activateVideo()
+
   deck.on('activate', function(e) {
-    console.log('Slide #' + e.index + ' was activated!', e.slide);
+    if (e.slide.getAttribute('data-camera') !== null) {
+      // transition to visible
+      video.style.opacity = "1";
+      video.style.transition = "opacity 0.5s linear";
+      video.style.visibility = "visible";
+    } else {
+      // transition to hidden
+      video.style.opacity = "0";
+      video.style.transition = "visibility 0s 0.25s, opacity 0.25s linear";
+      video.style.visibility = "hidden";
+    }
   });
 
-  deck.on('deactivate', function(e) {
-    console.log('Slide #' + e.index + ' was deactivated!', e.slide);
-  });
+  function activateVideo() {
+    var errorCallback = function(e) {
+      console.log('Reeeejected!', e);
+    };
 
-  /*
-    Deck interaction events, return false to cancel
-    https://github.com/markdalgleish/bespoke.js#deck-interaction-events
-  */
+    navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
 
-  deck.on('next', function(e) {
-    console.log('The next slide is #' + (e.index + 1), deck.slides[e.index + 1]);
-  });
+    var constraints = {
+      video: {
+       // HD required, then reducing via CSS
+       mandatory: {
+          minWidth: 1280,
+          minFrameRate: 30.0
+        }
+      },
+      audio: false
+    };
 
-  deck.on('prev', function(e) {
-    console.log('The previous slide is #' + (e.index - 1), deck.slides[e.index - 1]);
-  });
+    navigator.getUserMedia(constraints, function(localMediaStream) {
+      video.src = window.URL.createObjectURL(localMediaStream);
+      video.play();
 
-  deck.on('slide', function(e) {
-    console.log('The requested slide is #' + e.index, e.slide);
-  });
+      // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+      // See crbug.com/110938.
+      video.onloadedmetadata = function(e) {
+        // Ready to go. Do some stuff.
+      };
+    }, errorCallback);
+  }
+
+  function toggleFullScreen() {
+    if (!fullscreen) {
+      fullscreen = true;
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.mozRequestFullScreen) {
+        video.mozRequestFullScreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      }
+    } else {
+      fullscreen = false;
+      if (video.exitFullscreen) {
+        video.exitFullscreen();
+      } else if (video.mozCancelFullScreen) {
+        video.mozCancelFullScreen();
+      } else if (video.webkitExitFullscreen()) {
+        video.webkitExitFullscreen();
+      }
+    }
+  }
 };
