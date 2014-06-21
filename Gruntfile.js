@@ -40,14 +40,6 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.min.js'
       }
     },
-    jasmine: {
-      src: ['src/*.js'],
-      options: {
-        vendor: ['node_modules/bespoke/dist/bespoke.js'],
-        specs: 'spec/*Spec.js',
-        helpers: 'spec/*Helper.js'
-      }
-    },
     jshint: {
       src: [
         'Gruntfile.js',
@@ -91,6 +83,6 @@ module.exports = function(grunt) {
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-  grunt.registerTask('default', ['clean', 'jasmine', 'concat', 'uglify', 'micro']);
+  grunt.registerTask('default', ['clean', 'concat', 'uglify', 'micro']);
 
 };
