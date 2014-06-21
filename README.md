@@ -1,8 +1,6 @@
-[![Build Status](https://secure.travis-ci.org/mcollina/bespoke-camera.png?branch=master)](https://travis-ci.org/mcollina/bespoke-camera)
-
 # bespoke-camera
 
-See you during your bespoke presentation! 
+See you during your bespoke presentation!
 
 ## Download
 
@@ -22,6 +20,21 @@ bespoke.from('article', {
   camera: true
 });
 ```
+
+Then add a `data-camera` property in each slide you want to display your video, like so:
+
+```html
+<article>
+  <section data-camera>
+    <p>This slide has a camera</p>
+  </section>
+  <section>
+    <p>This slide has not</p>
+  </section>
+</article>
+```
+
+Plus, click on the video to put it full-screen!
 
 ## Package managers
 
