@@ -17,6 +17,16 @@ bespoke.plugins.camera = function(deck, options) {
     toggleFullScreen();
   }
 
+  var black = document.createElement("div");
+  black.style["background-color"] = "black";
+  black.style.width = "100%";
+  black.style.height = "100%";
+  black.style.position = "fixed";
+  black.style.top = "0px";
+  black.style.left = "0px";
+  black.style.visibility = "hidden";
+
+  document.querySelector('body').appendChild(black);
   document.querySelector('body').appendChild(video);
 
   activateVideo()
@@ -83,6 +93,8 @@ bespoke.plugins.camera = function(deck, options) {
     }
 
     fullscreen = true;
+    black.style.visibility = "visible";
+    video.style.height = "100%";
     video.style.width = "100%";
   }
 
@@ -92,6 +104,8 @@ bespoke.plugins.camera = function(deck, options) {
     }
 
     fullscreen = false;
+    black.style.visibility = "hidden";
+    video.style.height = "";
     video.style.width = options.width;
   }
 
