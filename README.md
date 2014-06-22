@@ -31,6 +31,9 @@ Then add a `data-camera` property in each slide you want to display your video, 
   <section>
     <p>This slide has not</p>
   </section>
+  <section data-camera="fullscreen">
+    <p>This slide has a camera in fullscreen</p>
+  </section>
 </article>
 ```
 
