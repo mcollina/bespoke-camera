@@ -35,8 +35,9 @@ bespoke.plugins.camera = function(deck, options) {
     if (e.slide.getAttribute('data-camera') === 'fullscreen') {
       show()
       requestFullscreen()
-    } if (e.slide.getAttribute('data-camera') !== null) {
+    } else if (e.slide.getAttribute('data-camera') !== null) {
       show()
+      exitFullscreen()
     } else {
       hide()
       setTimeout(exitFullscreen, 500);
@@ -64,13 +65,14 @@ bespoke.plugins.camera = function(deck, options) {
                        navigator.msGetUserMedia);
 
     var constraints = {
-      video: {
-       // HD required, then reducing via CSS
-       mandatory: {
-          minWidth: 1280,
-          minFrameRate: 30.0
-        }
-      },
+      //video: {
+      // // HD required, then reducing via CSS
+      // mandatory: {
+      //    minWidth: 1280,
+      //    minFrameRate: 30.0
+      //  }
+      //},
+      video: true,
       audio: false
     };
 
