@@ -11,14 +11,25 @@ Download the [production version][min] or the [development version][max], or use
 
 ## Usage
 
-First, include both `bespoke.js` and `bespoke-camera.js` in your page.
+This plugin is shipped in a [UMD format](https://github.com/umdjs/umd), meaning that it is available as a CommonJS/AMD module or browser global.
 
-Then, simply include the plugin when instantiating your presentation.
+For example, when using CommonJS modules:
 
 ```js
-bespoke.from('article', {
-  camera: true
-});
+var bespoke = require('bespoke'),
+  camera = require('bespoke-camera');
+
+bespoke.from('article', [
+  camera()
+]);
+```
+
+When using browser globals:
+
+```js
+bespoke.from('article', [
+  bespoke.plugins.camera()
+]);
 ```
 
 Then add a `data-camera` property in each slide you want to display your video, like so:
@@ -41,23 +52,16 @@ Plus, click on the video to put it full-screen!
 
 ## Package managers
 
-### Bower
-
-```bash
-$ bower install bespoke-camera
-```
-
 ### npm
 
 ```bash
 $ npm install bespoke-camera
 ```
 
-The bespoke-camera npm package is designed for use with [browserify](http://browserify.org/), e.g.
+### Bower
 
-```js
-require('bespoke');
-require('bespoke-camera');
+```bash
+$ bower install bespoke-camera
 ```
 
 ## Credits
